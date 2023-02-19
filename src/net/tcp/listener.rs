@@ -1,7 +1,7 @@
 use super::TcpStream;
 use crate::io::Socket;
 use std::{io, net::SocketAddr};
-use tokio::net::{to_socket_addrs, ToSocketAddrs};
+use std::net::{to_socket_addrs, ToSocketAddrs};
 
 /// A TCP socket server, listening for connections.
 ///
@@ -80,7 +80,8 @@ impl TcpListener {
     /// }
     /// ```
     pub async fn bind<A: ToSocketAddrs>(addr: A) -> io::Result<Self> {
-        let addrs = to_socket_addrs(addr).await?;
+        // TODO: This should use the tokio version
+        let addrs = to_socket_addrs(addr)?;
 
         let mut last_err = None;
 
