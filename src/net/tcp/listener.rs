@@ -81,7 +81,7 @@ impl TcpListener {
     /// ```
     pub async fn bind<A: ToSocketAddrs>(addr: A) -> io::Result<Self> {
         // TODO: This should use the tokio version
-        let addrs = to_socket_addrs(addr)?;
+        let addrs = addr.to_socket_addrs();
 
         let mut last_err = None;
 
